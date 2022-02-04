@@ -1,21 +1,52 @@
-import { useState } from "react";
+import { useState } from 'react'
+import moment from 'moment'
 
-function Post(props) {
+function Post({ postData, deletePost, likePost }) {
 
-    const [nbLikes, setnbLikes] = useState(props.postData.likes)
-    const [isLiked, setisLiked] = useState(false)
+  const [showMenu, setShowMenu] = useState(false)
 
-    const likePost = () => {
-        const increment = isLiked ? -1 : 1
-        setnbLikes(nbLikes + increment)
-        setisLiked(!isLiked)
-    }
+  const toggleMenu = () => setShowMenu(!showMenu)
 
-    return (<><p>{props.postData.author} 👀 
-    {props.postData.text}<br /> 
-    {nbLikes} likes</p>
-    <button onClick={likePost}>{isLiked ? "Vous aimez ce post" : "J'aime"}</button></>)
+  console.log("postData", postData);
+
+  return (
+    <div className='post'>
+
+      <div className="post-header">
+        <div className="post-header_left">
+          <img className="post-profilepic" src={postData.authorPicture} /><br />
+          <div>
+            <div className="post-author">{postData.author}</div>
+            <div className="post-time">{moment(postData.date).format('HH:mm')}</div>
+          </div>
+        </div>
+
+        <div className="post-menu" onClick={toggleMenu}>
+          ...
+          <div className={`post-popup ${showMenu ? '' : 'hidden'}`} onClick={() => deletePost(postData.id)}>Supprimer</div>
+        </div>
+
+      </div>
+
+      <div className="post-text">
+        {postData.text}
+      </div>
+
+      <div className="post-picture">
+        <img src={postData.postPicture} />
+      </div>
+
+      <div className="post-footer">
+
+        <span onClick={() => likePost(postData.id)} className={`post-likes ${postData.isLiked ? 'liked' : ''}`}>
+          <span className="post-thumb">👍</span>
+          <span>{postData.likes}</span>
+        </span>
+
+      </div>
+
+    </div>
+  )
 }
-
 
 export default Post;

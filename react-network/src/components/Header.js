@@ -1,19 +1,14 @@
-import { useState } from "react"
+import { useState } from 'react'
 
-function Header (props) {
-    // let title = "React NetWork"
-    const [title, setTitle] = useState("React NetWork")
+function Header(props) {
 
-    const changeTitle = () => {
-        setTitle("Hey les mecs")
-    }
+	const title = "React Network"
 
-    return (
-        <>
-        <h1>{title}</h1>
-        <button onClick={changeTitle}>Cliquez Ici</button>
-        </>
-    )
+	return (
+		<div className="header">
+			<h1>{title}</h1>
+		</div>
+	)
 }
 
-export default Header;
+export default Header
